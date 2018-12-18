@@ -1,0 +1,21 @@
+{
+  "name": "victure",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://samhamnam@bitbucket.org/samhamnam/victure.git"
+  },
+  "author": "samhamnam",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/samhamnam/victure#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "mongodb": "^3.1.10"
+  }
+}
