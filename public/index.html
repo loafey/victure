@@ -7,11 +7,24 @@
     <title>Victure</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
-    <script src="main.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
+        crossorigin="anonymous">
 </head>
 
 <body>
-    <h1>Victure</h1>
+    <div class="main-container">
+        <h1 class="main-container-title">Victure</h1>
+        <div id="test-image"></div>
+        <div class="upload-div" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);">
+            <div id="upload-button" onclick="fileUpload()" class="upload-button">
+                <h1>Upload</h1>
+                <i style="font-size: 25px;" class="fas fa-file-upload"></i>
+                <input id="file-input" type="file" name="file-input" style="display: none;" accept="image/png, image/jpeg, image/bmp"
+                    onchange="fileUploadButton(this.files);">
+            </div>
+        </div>
+    </div>
+    <script src="main.js"></script>
 </body>
 
 </html>
