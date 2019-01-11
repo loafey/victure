@@ -4,6 +4,10 @@ function fileUpload() {
     document.getElementById("file-input").click();
 }
 
+function dragOverText() {
+    document.getElementById("drop-here-text").innerText = "Hello";
+}
+
 function dropHandler(ev) {
     ev.preventDefault();
     //var reader = new FileReader();

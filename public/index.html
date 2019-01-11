@@ -12,8 +12,9 @@
 </head>
 
 <body>
-    <div class="main-container">
+    <div class="main-container" ondragover="dragOverText();">
         <h1 class="main-container-title">Victure</h1>
+        <p id="drop-here-text">HEJ</p>
         <div id="test-image"></div>
         <div class="upload-div" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);">
             <div id="upload-button" onclick="fileUpload()" class="upload-button">
