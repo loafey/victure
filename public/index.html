@@ -4,49 +4,25 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Victure</title>
+    <title>Victure - Upload</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
-        crossorigin="anonymous">
 </head>
 
 <body>
-    <div class="main-container" ondragover="dragOverText();">
-        <h1 class="main-container-title">Victure</h1>
-        <p id="drop-here-text">HEJ</p>
-        <div id="test-image"></div>
-        <div class="upload-div" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);">
+    <h1 class="main-container-title">Victure</h1>
+    <div class="upload-container">
+        <div id="test-image" style="display: none;"></div>
+        <div id="upload-div" class="upload-div" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);">
             <div id="upload-button" onclick="fileUpload()" class="upload-button">
                 <h1>Upload</h1>
-                <i style="font-size: 25px;" class="fas fa-file-upload"></i>
+                <a class="upload-arrow">↑</a>
                 <input id="file-input" type="file" name="file-input" style="display: none;" accept="image/png, image/jpeg, image/bmp"
                     onchange="fileUploadButton(this.files);">
             </div>
         </div>
+        <div id="upload-after-buttons"></div>
     </div>
-    <footer>
-        <h2>About</h2>
-        <h2>Links</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam volutpat, leo id faucibus volutpat, felis
-            lectus commodo odio, sed euismod augue est in sapien. Maecenas gravida, nibh ac placerat consectetur, erat
-            magna ultricies erat, et varius massa sapien at magna. Proin non lectus elementum, finibus nisi eget,
-            malesuada libero. Morbi commodo urna odio, vel aliquam nunc fermentum ut. Nulla sagittis massa non augue
-            tincidunt, eget condimentum enim porttitor. Donec eleifend ex id erat pellentesque efficitur. Pellentesque
-            posuere a odio ut tristique. Duis iaculis euismod libero, et rhoncus magna posuere at. Pellentesque
-            tristique est ac rutrum cursus. Ut vulputate rutrum ipsum sed mattis. Mauris vitae viverra felis. Proin at
-            urna nulla. Vivamus nec egestas lorem.
-        </p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam volutpat, leo id faucibus volutpat, felis
-            lectus commodo odio, sed euismod augue est in sapien. Maecenas gravida, nibh ac placerat consectetur, erat
-            magna ultricies erat, et varius massa sapien at magna. Proin non lectus elementum, finibus nisi eget,
-            malesuada libero. Morbi commodo urna odio, vel aliquam nunc fermentum ut. Nulla sagittis massa non augue
-            tincidunt, eget condimentum enim porttitor. Donec eleifend ex id erat pellentesque efficitur. Pellentesque
-            posuere a odio ut tristique. Duis iaculis euismod libero, et rhoncus magna posuere at. Pellentesque
-            tristique est ac rutrum cursus. Ut vulputate rutrum ipsum sed mattis. Mauris vitae viverra felis. Proin at
-            urna nulla. Vivamus nec egestas lorem.
-        </p>
-    </footer>
     <script src="main.js"></script>
 </body>
 

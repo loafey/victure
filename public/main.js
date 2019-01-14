@@ -4,35 +4,24 @@ function fileUpload() {
     document.getElementById("file-input").click();
 }
 
-function dragOverText() {
-    document.getElementById("drop-here-text").innerText = "Hello";
-}
-
 function dropHandler(ev) {
     ev.preventDefault();
-    //var reader = new FileReader();
 
     if (ev.dataTransfer.items) {
         for (i = 0; i < ev.dataTransfer.items.length; i++) {
-            if (ev.dataTransfer.items[i].kind === "file") {
+            if ((ev.dataTransfer.items[i].kind === "file") && (ev.dataTransfer.items[i].type.match("^image/*"))) {
                 var file = ev.dataTransfer.items[i].getAsFile();
-                //console.log("file[" + i + "].name = " + ev.dataTransfer.files[i].name);
-                console.log(URL.createObjectURL(ev.dataTransfer.files[i]));
                 document.getElementById("test-image").style.backgroundImage = "url(" + URL.createObjectURL(ev.dataTransfer.files[i]) + ")";
+                uploadFinished();
             }
-        }
-    } else {
-        for (i = 0; i < ev.dataTransfer.files.length; i++) {
-            console.log("file[" + i + "].name = " + ev.dataTransfer.files[i].name);
         }
     }
     removeDragData(ev);
 }
 
 function fileUploadButton(file) {
-    console.log(file);
-    console.log(URL.createObjectURL(file[0]));
     document.getElementById("test-image").style.backgroundImage = "url(" + URL.createObjectURL(file[0]) + ")";
+    uploadFinished();
 }
 
 function dragOverHandler(ev) {
@@ -45,4 +34,10 @@ function removeDragData(ev) {
     } else {
         ev.dataTransfer.clearData();
     }
+}
+
+function uploadFinished() {
+    document.getElementById("upload-div").style.display = "none";
+    //document.getElementById("test-image").style.gridColumn = "1";
+    document.getElementById("test-image").style.display = "block";
 }
