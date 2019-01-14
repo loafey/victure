@@ -17,13 +17,19 @@
             <div id="upload-button" onclick="fileUpload()" class="upload-button">
                 <h1>Upload</h1>
                 <a class="upload-arrow">↑</a>
-                <input id="file-input" type="file" name="file-input" style="display: none;" accept="image/png, image/jpeg, image/bmp"
-                    onchange="fileUploadButton(this.files);">
+                <input id="file-input" type="file" name="file-input" style="display: none;" accept="^image/*" onchange="fileUploadButton(this.files);">
             </div>
         </div>
-        <div id="upload-after-buttons"></div>
+        <div id="upload-after-buttons" style="display: block;">
+            <button style="background-color: red;">Cancel</button>
+            <button style="background-color: green;">Upload</button>
+            <input id="upload-after-buttons-password" type="password" class="de-thintextinput" style="margin-top: 15px;"
+                placeholderText="Password...">
+            <span>Timeout: <input id="timeout-range" min="1" max="5" value="3" type="range"> 1:25h</span>
+        </div>
     </div>
     <script src="main.js"></script>
+    <script src="https://samhamnam.github.io/defaultElements/defaultElements.js"></script>
 </body>
 
 </html>

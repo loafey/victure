@@ -40,4 +40,9 @@ function uploadFinished() {
     document.getElementById("upload-div").style.display = "none";
     //document.getElementById("test-image").style.gridColumn = "1";
     document.getElementById("test-image").style.display = "block";
+    document.getElementById("upload-after-buttons").style.display = "block";
+}
+
+function updateDeleteTimer() {
+    var timeoutRange = document.getElementById("timeout-range").value;
 }
