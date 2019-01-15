@@ -44,5 +44,20 @@ function uploadFinished() {
 }
 
 function updateDeleteTimer() {
+    var selectedTime = 0;
     var timeoutRange = document.getElementById("timeout-range").value;
+    console.log(timeoutRange);
+
+    if (timeoutRange == 1) {
+        selectedTime = 5;
+    } else {
+        selectedTime = timeoutRange * 5;
+    }
+
+    document.getElementById("timeout-time-a").innerHTML = "Automaticly deletes after " + selectedTime + " minuets.";
+}
+updateDeleteTimer();
+
+function reloadPage() {
+    location.reload();
 }

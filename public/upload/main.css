@@ -19,7 +19,7 @@ body {
 }
 
 .upload-button {
-    background-color: rgba(245, 222, 179, 0.507);
+    background-color: rgba(255, 255, 255, 0.15);
     border-radius: 10px;
     grid-column-start: 2;
     grid-column-end: 4;
@@ -37,6 +37,7 @@ body {
     grid-template-rows: 300px;
     margin: 0;
     background: linear-gradient(to bottom, rgba(53, 11, 57, 1) 0%, rgba(0, 0, 0, 1) 100%);
+    transition-duration: 0.5s;
 }
 
 .upload-div h1 {
@@ -75,6 +76,10 @@ body {
     grid-column: 2;
     font-size: 20px;
     margin-top: 10px;
+    background-color: rgba(245, 222, 179, 0.1);
+    border-radius: 0 0 20px 20px;
+    border: 5px rgba(245, 222, 179, 0.1) solid;
+    margin-left: -2.5px;
 }
 
 #upload-after-buttons button {
@@ -88,6 +93,11 @@ body {
     color: white;
     background-color: rgba(245, 222, 179, 0.507);
     cursor: pointer;
+    transition-duration: 0.2s;
+}
+
+#upload-after-buttons button:hover {
+    opacity: 0.80;
 }
 
 #upload-after-buttons #upload-after-buttons-password {
