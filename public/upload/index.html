@@ -11,8 +11,10 @@
 
 <body>
     <h1 class="main-container-title">Victure</h1>
-    <div class="upload-container">
-        <div id="test-image" style="display: none;"></div>
+    <div id="upload-container" class="upload-container">
+        <div id="test-image" style="display: none;">
+            <img id="test-image-inside" src="">
+        </div>
         <div id="upload-div" class="upload-div" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);">
             <div id="upload-button" onclick="fileUpload()" class="upload-button">
                 <h1>Upload</h1>

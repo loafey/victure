@@ -46,13 +46,15 @@ body {
 
 #test-image {
     width: 100%;
-    height: 100%;
-    background-size: contain;
-    background-repeat: no-repeat;
     grid-row: 1;
     grid-column: 2;
-    background-position-x: 50%;
-    background-position-y: 50%;
+    border: solid rgba(255, 255, 255, 0.15) 5px;
+    margin-left: -2.5px;
+}
+
+#test-image img {
+    max-width: 100%;
+    max-width: 100%;
 }
 
 .main-container-title {
@@ -139,7 +141,7 @@ body {
 
     .upload-container {
         grid-template-columns: 1fr;
-        grid-template-rows: 300px 100px;
+        grid-template-rows: 300px;
     }
 
     .upload-div {

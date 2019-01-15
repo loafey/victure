@@ -10,8 +10,8 @@ function dropHandler(ev) {
     if (ev.dataTransfer.items) {
         for (i = 0; i < ev.dataTransfer.items.length; i++) {
             if ((ev.dataTransfer.items[i].kind === "file") && (ev.dataTransfer.items[i].type.match("^image/*"))) {
-                var file = ev.dataTransfer.items[i].getAsFile();
-                document.getElementById("test-image").style.backgroundImage = "url(" + URL.createObjectURL(ev.dataTransfer.files[i]) + ")";
+                //document.getElementById("test-image").style.backgroundImage = "url(" + URL.createObjectURL(ev.dataTransfer.files[i]) + ")";
+                document.getElementById("test-image-inside").src = "URL.createObjectURL(ev.dataTransfer.files[i])";
                 uploadFinished();
             }
         }
@@ -20,7 +20,8 @@ function dropHandler(ev) {
 }
 
 function fileUploadButton(file) {
-    document.getElementById("test-image").style.backgroundImage = "url(" + URL.createObjectURL(file[0]) + ")";
+    //document.getElementById("test-image").style.backgroundImage = "url(" + URL.createObjectURL(file[0]) + ")";
+    document.getElementById("test-image-inside").src = URL.createObjectURL(file[0]);
     uploadFinished();
 }
 
@@ -37,6 +38,13 @@ function removeDragData(ev) {
 }
 
 function uploadFinished() {
+    setTimeout(function () {
+        if (document.getElementById("test-image-inside").clientHeight <= 500) {
+            document.getElementById("upload-container").style.gridTemplateRows = document.getElementById("test-image-inside").clientHeight + 10 + "px";
+        } else {
+            document.getElementById("upload-container").style.gridTemplateRows = "500px";
+        }
+    }, 100);
     document.getElementById("upload-div").style.display = "none";
     //document.getElementById("test-image").style.gridColumn = "1";
     document.getElementById("test-image").style.display = "block";
