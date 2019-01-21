@@ -1,4 +1,11 @@
-var uploadButton = document.getElementById("upload-button");
+var fileToUpload;
+
+function sendImage() {
+    var request = new XMLHttpRequest();
+    request.open("POST", "/file_upload", true);
+    request.setRequestHeader("file", "file");
+    request.send(fileToUpload, name = "file");
+}
 
 function fileUpload() {
     document.getElementById("file-input").click();
@@ -11,8 +18,10 @@ function dropHandler(ev) {
         for (i = 0; i < ev.dataTransfer.items.length; i++) {
             if ((ev.dataTransfer.items[i].kind === "file") && (ev.dataTransfer.items[i].type.match("^image/*"))) {
                 //document.getElementById("test-image").style.backgroundImage = "url(" + URL.createObjectURL(ev.dataTransfer.files[i]) + ")";
-                document.getElementById("test-image-inside").src = "URL.createObjectURL(ev.dataTransfer.files[i])";
+                document.getElementById("test-image-inside").src = URL.createObjectURL(ev.dataTransfer.files[i]);
+                fileToUpload = URL.createObjectURL(ev.dataTransfer.files[i]);
                 uploadFinished();
+                console.log(fileToUpload);
             }
         }
     }
@@ -22,6 +31,8 @@ function dropHandler(ev) {
 function fileUploadButton(file) {
     //document.getElementById("test-image").style.backgroundImage = "url(" + URL.createObjectURL(file[0]) + ")";
     document.getElementById("test-image-inside").src = URL.createObjectURL(file[0]);
+    fileToUpload = URL.createObjectURL(file[0]);
+    console.log(fileToUpload);
     uploadFinished();
 }
 
@@ -46,7 +57,6 @@ function uploadFinished() {
         }
     }, 100);
     document.getElementById("upload-div").style.display = "none";
-    //document.getElementById("test-image").style.gridColumn = "1";
     document.getElementById("test-image").style.display = "block";
     document.getElementById("upload-after-buttons").style.display = "block";
 }

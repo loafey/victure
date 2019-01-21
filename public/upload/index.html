@@ -24,7 +24,7 @@
         </div>
         <div id="upload-after-buttons" style="display: none;">
             <button onclick="reloadPage();" style="background-color: red;">Cancel</button>
-            <button style="background-color: green;">Upload</button>
+            <button onclick="sendImage();" style="background-color: green;">Upload</button>
             <input id="upload-after-buttons-password" type="password" class="de-thintextinput" style="margin-top: 20px; width: -5px;"
                 placeholderText="Password...">
             <span>Timeout: <input id="timeout-range" oninput="updateDeleteTimer();" min="1" max="12" value="3" type="range"></span>
@@ -32,7 +32,7 @@
         </div>
     </div>
     <script src="main.js"></script>
-    <script src="https://samhamnam.github.io/de/defaultElements/defaultElements.js"></script>
+    <script src="https://samhamnam.github.io/projects/de/defaultElements/defaultElements.js"></script>
 </body>
 
 </html>
