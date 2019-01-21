@@ -1,10 +1,19 @@
+/*jshint esversion: 6 */
 var fileToUpload;
 
 function sendImage() {
+    var formContent = new FormData();
+    formContent.append("image", fileToUpload);
+    formContent.append("name", "file");
+
+    for (var pair of formContent.entries()) {
+        console.log(pair[0] + ', ' + pair[1]);
+    }
+
     var request = new XMLHttpRequest();
     request.open("POST", "/file_upload", true);
-    request.setRequestHeader("file", "file");
-    request.send(fileToUpload, name = "file");
+    request.setRequestHeader("file", "image");
+    request.send(formContent);
 }
 
 function fileUpload() {
@@ -19,7 +28,8 @@ function dropHandler(ev) {
             if ((ev.dataTransfer.items[i].kind === "file") && (ev.dataTransfer.items[i].type.match("^image/*"))) {
                 //document.getElementById("test-image").style.backgroundImage = "url(" + URL.createObjectURL(ev.dataTransfer.files[i]) + ")";
                 document.getElementById("test-image-inside").src = URL.createObjectURL(ev.dataTransfer.files[i]);
-                fileToUpload = URL.createObjectURL(ev.dataTransfer.files[i]);
+                //fileToUpload = URL.createObjectURL(ev.dataTransfer.files[i]);
+                fileToUpload = ev.dataTransfer.files[i];
                 uploadFinished();
                 console.log(fileToUpload);
             }
@@ -31,7 +41,8 @@ function dropHandler(ev) {
 function fileUploadButton(file) {
     //document.getElementById("test-image").style.backgroundImage = "url(" + URL.createObjectURL(file[0]) + ")";
     document.getElementById("test-image-inside").src = URL.createObjectURL(file[0]);
-    fileToUpload = URL.createObjectURL(file[0]);
+    //fileToUpload = URL.createObjectURL(file[0]);
+    fileToUpload = file[0];
     console.log(fileToUpload);
     uploadFinished();
 }

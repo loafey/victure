@@ -2,11 +2,12 @@
 require('v8-compile-cache');
 const multer = require("multer");
 const express = require("express");
+const rimraf = require("rimraf");
 const app = express();
 const path = require("path");
 const port = 3000;
 const upload = multer({
-    dest: "/tmp/"
+    dest: "./tmp/"
 });
 const fs = require("fs");
 
@@ -14,9 +15,22 @@ app.get("/", function (req, res) {
     res.sendFile(path.join(__dirname + "/public/index.html"));
 });
 
-/*app.post("/file_upload", upload.single("file"), function (req, res) {
+fs.access("./tmp", (err) => {
+    if (!err) {
+        rimraf("./tmp", function () {
+            fs.mkdir("./tmp", function () {
+                return;
+            });
+        });
+    }
+    //fs.mkdir("./tmp");
+});
+
+app.post("/file_upload", upload.single("image"), function (req, res) {
+    console.log(req.body);
+    console.log(req.file);
     var file = __dirname + "/" + req.file.filename;
-    fs.rename(req.file.path, file, function (err) {
+    fs.rename(req.file.path, "./tmp/" + req.body[1].originalname, function (err) {
         if (err) {
             res.sendStatus(500);
             console.log(err);
@@ -25,32 +39,9 @@ app.get("/", function (req, res) {
                 message: "File uploaded",
                 filename: req.filename
             });
-            console.log(res.json);
         }
     });
-});*/
-
-app.post('/file_upload', upload.single("file"), function (req, res) {
-    var file = __dirname + "/" + req.file.originalname;
-    fs.readFile(req.file.path, function (err, data) {
-        fs.writeFile(file, data, function (err) {
-            if (err) {
-                console.error(err);
-                response = {
-                    message: 'Sorry, file couldn\'t be uploaded.',
-                    filename: req.file.originalname
-                };
-            } else {
-                response = {
-                    message: 'File uploaded successfully',
-                    filename: req.file.originalname
-                };
-            }
-            res.end(JSON.stringify(response));
-        });
-    });
-})
-
+});
 
 app.use(express.static("./public"));
 app.listen(port);
