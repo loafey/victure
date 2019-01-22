@@ -57,7 +57,7 @@ app.post("/file_upload", upload.single("image"), function (req, res) {
 
 var temporaryHost = function (fileName) {
     app.get("/files/" + String(fileName), function (req, res) {
-        res.send("<p>hewwo</p>");
+        res.send("<p>" + String(fileName) + "</p> <img src='" + __dirname + "/tmp/" + String(fileName) + "'>");
     });
 };
 
