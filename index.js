@@ -3,8 +3,9 @@ require('v8-compile-cache');
 const multer = require("multer");
 const express = require("express");
 const rimraf = require("rimraf");
-const app = express();
 const path = require("path");
+
+const app = express();
 const port = 3000;
 const upload = multer({
     dest: "./tmp/"
@@ -29,7 +30,8 @@ fs.access("./tmp", (err) => {
 app.post("/file_upload", upload.single("image"), function (req, res) {
     console.log(req.body);
     console.log(req.file);
-    var file = __dirname + "/tmp/" + req.file.filename;
+
+    var file = __dirname + "/tmp/" + req.file.filename + path.extname(req.file.originalname);
 
     var fileObj = new Object({});
     fileObj.name = req.file.originalname;
@@ -38,11 +40,13 @@ app.post("/file_upload", upload.single("image"), function (req, res) {
     fileObj.mimetype = req.file.mimetype;
     fileObj.password = req.body.password;
     fileObj.deleteTime = req.body.deleteTime;
+    console.log("Deletes after: " + fileObj.deleteTime);
+
     var fileObjJson = JSON.stringify(fileObj);
+
     fs.writeFile(__dirname + "/tmp/" + req.file.filename + ".json", fileObjJson, function () {
         return;
     });
-    console.table(fileObjJson);
 
     console.log(file);
     fs.rename(req.file.path, file, function (err) {
@@ -50,14 +54,16 @@ app.post("/file_upload", upload.single("image"), function (req, res) {
             res.sendStatus(500);
             console.log(err);
         } else {
-            temporaryHost(req.file.filename);
+            temporaryHost(req.file.filename, path.extname(req.file.originalname), fileObj.password);
         }
     });
 });
 
-var temporaryHost = function (fileName) {
+var temporaryHost = function (fileName, fileExtension, deleteTime) {
+    console.log("Hosting: " + String(fileName));
     app.get("/files/" + String(fileName), function (req, res) {
-        res.send("<p>" + String(fileName) + "</p> <img src='" + __dirname + "/tmp/" + String(fileName) + "'>");
+        res.sendFile(__dirname + "/tmp/" + String(fileName) + fileExtension);
+        res.send("<p>" + String(fileName) + "</p> <img src='" + "../tmp/" + String(fileName) + fileExtension + "'>");
     });
 };
 
