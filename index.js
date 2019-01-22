@@ -29,19 +29,37 @@ fs.access("./tmp", (err) => {
 app.post("/file_upload", upload.single("image"), function (req, res) {
     console.log(req.body);
     console.log(req.file);
-    var file = __dirname + "/" + req.file.filename;
-    fs.rename(req.file.path, "./tmp/" + req.body[1].originalname, function (err) {
+    var file = __dirname + "/tmp/" + req.file.filename;
+
+    var fileObj = new Object({});
+    fileObj.name = req.file.originalname;
+    fileObj.filename = req.file.filename;
+    fileObj.size = req.file.size;
+    fileObj.mimetype = req.file.mimetype;
+    fileObj.password = req.body.password;
+    fileObj.deleteTime = req.body.deleteTime;
+    var fileObjJson = JSON.stringify(fileObj);
+    fs.writeFile(__dirname + "/tmp/" + req.file.filename + ".json", fileObjJson, function () {
+        return;
+    });
+    console.table(fileObjJson);
+
+    console.log(file);
+    fs.rename(req.file.path, file, function (err) {
         if (err) {
             res.sendStatus(500);
             console.log(err);
         } else {
-            res.json({
-                message: "File uploaded",
-                filename: req.filename
-            });
+            temporaryHost(req.file.filename);
         }
     });
 });
+
+var temporaryHost = function (fileName) {
+    app.get("/files/" + String(fileName), function (req, res) {
+        res.send("<p>hewwo</p>");
+    });
+};
 
 app.use(express.static("./public"));
 app.listen(port);

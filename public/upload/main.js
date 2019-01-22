@@ -6,6 +6,17 @@ function sendImage() {
     formContent.append("image", fileToUpload);
     formContent.append("name", "file");
 
+    formContent.append("password", document.getElementById("upload-after-buttons-password").value);
+
+    var selectedTime = 0;
+    var timeoutRange = document.getElementById("timeout-range").value;
+    if (timeoutRange == 1) {
+        selectedTime = 5;
+    } else {
+        selectedTime = timeoutRange * 5;
+    }
+    formContent.append("deleteTime", selectedTime);
+
     for (var pair of formContent.entries()) {
         console.log(pair[0] + ', ' + pair[1]);
     }
@@ -83,7 +94,7 @@ function updateDeleteTimer() {
         selectedTime = timeoutRange * 5;
     }
 
-    document.getElementById("timeout-time-a").innerHTML = "Automaticly deletes after " + selectedTime + " minuets.";
+    document.getElementById("timeout-time-a").innerHTML = "Automaticly deletes after " + selectedTime + " minutes.";
 }
 updateDeleteTimer();
 
