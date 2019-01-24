@@ -1,22 +1,19 @@
 /*jshint esversion: 6 */
 require('v8-compile-cache');
-const multer = require("multer");
-const express = require("express");
-const rimraf = require("rimraf");
-const path = require("path");
-
-const app = express();
-const port = 3000;
-const upload = multer({
+var multer = require("multer");
+var express = require("express");
+var rimraf = require("rimraf");
+var path = require("path");
+var app = express();
+var port = 3000;
+var upload = multer({
     dest: "./tmp/"
 });
-const fs = require("fs");
-
+var fs = require("fs");
 app.get("/", function (req, res) {
     res.sendFile(path.join(__dirname + "/public/index.html"));
 });
-
-fs.access("./tmp", (err) => {
+fs.access("./tmp", function (err) {
     if (!err) {
         rimraf("./tmp", function () {
             fs.mkdir("./tmp", function () {
@@ -26,13 +23,10 @@ fs.access("./tmp", (err) => {
     }
     //fs.mkdir("./tmp");
 });
-
 app.post("/file_upload", upload.single("image"), function (req, res) {
     console.log(req.body);
     console.log(req.file);
-
     var file = __dirname + "/tmp/" + req.file.filename + path.extname(req.file.originalname);
-
     var fileObj = new Object({});
     fileObj.name = req.file.originalname;
     fileObj.filename = req.file.filename;
@@ -41,24 +35,21 @@ app.post("/file_upload", upload.single("image"), function (req, res) {
     fileObj.password = req.body.password;
     fileObj.deleteTime = req.body.deleteTime;
     console.log("Deletes after: " + fileObj.deleteTime);
-
     var fileObjJson = JSON.stringify(fileObj);
-
     fs.writeFile(__dirname + "/tmp/" + req.file.filename + ".json", fileObjJson, function () {
         return;
     });
-
     console.log(file);
     fs.rename(req.file.path, file, function (err) {
         if (err) {
             res.sendStatus(500);
             console.log(err);
-        } else {
+        }
+        else {
             temporaryHost(req.file.filename, path.extname(req.file.originalname), fileObj.password);
         }
     });
 });
-
 var temporaryHost = function (fileName, fileExtension, deleteTime) {
     console.log("Hosting: " + String(fileName));
     app.get("/files/" + String(fileName), function (req, res) {
@@ -66,6 +57,5 @@ var temporaryHost = function (fileName, fileExtension, deleteTime) {
         res.send("<p>" + String(fileName) + "</p> <img src='" + "../tmp/" + String(fileName) + fileExtension + "'>");
     });
 };
-
 app.use(express.static("./public"));
 app.listen(port);
