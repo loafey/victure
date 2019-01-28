@@ -17,14 +17,18 @@ function sendImage() {
     }
     formContent.append("deleteTime", selectedTime);
 
-    for (var pair of formContent.entries()) {
-        console.log(pair[0] + ', ' + pair[1]);
-    }
-
     var request = new XMLHttpRequest();
     request.open("POST", "/file_upload", true);
     request.setRequestHeader("file", "image");
     request.send(formContent);
+    request.onreadystatechange = function () {
+        if (request.readyState == XMLHttpRequest.DONE) {
+            /*var tempRequest = new XMLHttpRequest();
+            tempRequest.open("GET", request.responseType);
+            tempRequest.send();*/
+            window.open(request.responseText, "_blank");
+        }
+    };
 }
 
 function fileUpload() {
@@ -42,7 +46,6 @@ function dropHandler(ev) {
                 //fileToUpload = URL.createObjectURL(ev.dataTransfer.files[i]);
                 fileToUpload = ev.dataTransfer.files[i];
                 uploadFinished();
-                console.log(fileToUpload);
             }
         }
     }
@@ -50,11 +53,8 @@ function dropHandler(ev) {
 }
 
 function fileUploadButton(file) {
-    //document.getElementById("test-image").style.backgroundImage = "url(" + URL.createObjectURL(file[0]) + ")";
     document.getElementById("test-image-inside").src = URL.createObjectURL(file[0]);
-    //fileToUpload = URL.createObjectURL(file[0]);
     fileToUpload = file[0];
-    console.log(fileToUpload);
     uploadFinished();
 }
 
@@ -86,7 +86,6 @@ function uploadFinished() {
 function updateDeleteTimer() {
     var selectedTime = 0;
     var timeoutRange = document.getElementById("timeout-range").value;
-    console.log(timeoutRange);
 
     if (timeoutRange == 1) {
         selectedTime = 5;
