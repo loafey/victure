@@ -16,13 +16,16 @@ var upload = multer({
     dest: tempFolder
 });
 console.log("Hosting on: " + port);
-fs.access(tempFolder, function (err) {
-    if (!err) {
-        rimraf(tempFolder, function () {
-            fs.mkdir(tempFolder, function () { return void {}; });
-        });
-    }
-});
+var emptyTMP = function () {
+    fs.access(tempFolder, function (err) {
+        if (!err) {
+            rimraf(tempFolder, function () {
+                fs.mkdir(tempFolder, function () { return void {}; });
+            });
+        }
+    });
+};
+emptyTMP();
 app.post("/file_upload", upload.single("image"), function (req, res) {
     var file = tempFolder + "/" + req.file.filename + path.extname(req.file.originalname);
     res.send("/files/" + req.file.filename);
@@ -74,3 +77,4 @@ app.get("/", function (req, res) {
 });
 app.use(express.static("./public"));
 app.listen(port);
+process.on("SIGINT", function () { return void {}; });

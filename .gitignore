@@ -82,3 +82,4 @@ typings/
 # Temp
 
 tmp/
+.dist/
