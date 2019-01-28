@@ -11,8 +11,7 @@ var crypto = require("crypto");
 //Path
 var app = express();
 var tempFolder = __dirname + "/tmp";
-var port = process.env.PORT || 3000;
-var hashSha256 = crypto.createHash("sha256");
+var port = process.env.PORT || String(3000);
 var upload = multer({
     dest: tempFolder
 });
@@ -25,36 +24,38 @@ fs.access(tempFolder, function (err) {
     }
 });
 app.post("/file_upload", upload.single("image"), function (req, res) {
-    var file = __dirname + "/tmp/" + req.file.filename + path.extname(req.file.originalname);
+    var file = tempFolder + "/" + req.file.filename + path.extname(req.file.originalname);
     res.send("/files/" + req.file.filename);
+    var hashSha256 = crypto.createHash("sha256");
+    hashSha256.update(req.body.password);
+    var passwordHash = hashSha256.digest("hex");
     var fileObj = new Object({
         name: req.file.originalname,
         filename: req.file.filename,
         size: req.file.size,
         mimetype: req.file.mimetype,
-        //passwordHash: hashSha256.digest(req.body.password),
+        passwordHash: passwordHash,
         deleteTime: req.body.deleteTime
     });
+    hashSha256.end();
     var fileObjJson = JSON.stringify(fileObj);
-    fs.writeFile(__dirname + "/tmp/" + req.file.filename + ".json", fileObjJson, function () { return void {}; });
+    fs.writeFile(tempFolder + "/" + req.file.filename + ".json", fileObjJson, function () { return void {}; });
     fs.rename(req.file.path, file, function (err) {
         if (err) {
             res.sendStatus(500);
             console.log(err);
         }
         else {
-            temporaryHost(req.file.filename, path.extname(req.file.originalname), fileObj.deleteTime);
+            temporaryHost(req.file.filename, path.extname(req.file.originalname), req.body.deleteTime);
         }
     });
 });
 var temporaryHost = function (fileName, fileExtension, deleteTime) {
     var serverEnded = false;
-    console.log("Starting: " + fileName);
     app.get("/files/" + fileName, function (req, res) {
         if (serverEnded == false) {
-            res.sendFile(__dirname + "/tmp/" + fileName + fileExtension);
+            res.sendFile(tempFolder + "/" + fileName + fileExtension);
             deleteHost(req, res, deleteTime);
-            console.log("Ending in: " + deleteTime * 1000);
         }
         else {
             res.redirect("/");
@@ -62,15 +63,13 @@ var temporaryHost = function (fileName, fileExtension, deleteTime) {
     });
     var deleteHost = function (req, res, deleteTime) {
         setTimeout(function () {
-            console.log("Ending: " + fileName);
             serverEnded = true;
-            fs.unlink(__dirname + "/tmp/" + fileName + fileExtension, function () { return void {}; });
-            fs.unlink(__dirname + "/tmp/" + fileName + ".json", function () { return void {}; });
-        }, deleteTime * 1000);
+            fs.unlink(tempFolder + "/" + fileName + fileExtension, function () { return void {}; });
+            fs.unlink(tempFolder + "/" + fileName + ".json", function () { return void {}; });
+        }, deleteTime * 60000);
     };
 };
 app.get("/", function (req, res) {
-    //res.sendFile(__dirname + "/public/index.html");
     res.send("<p>heuua</p>");
 });
 app.use(express.static("./public"));

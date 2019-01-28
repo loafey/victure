@@ -23,10 +23,11 @@ function sendImage() {
     request.send(formContent);
     request.onreadystatechange = function () {
         if (request.readyState == XMLHttpRequest.DONE) {
-            /*var tempRequest = new XMLHttpRequest();
-            tempRequest.open("GET", request.responseType);
-            tempRequest.send();*/
             window.open(request.responseText, "_blank");
+            var tempIframe = document.createElement("iframe");
+            tempIframe.style.display = "none";
+            tempIframe.src = request.responseText;
+            document.body.appendChild(tempIframe);
         }
     };
 }
