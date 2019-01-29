@@ -77,4 +77,9 @@ app.get("/", function (req, res) {
 });
 app.use(express.static("./public"));
 app.listen(port);
-process.on("SIGINT", function () { return void {}; });
+process.on("SIGINT", function () {
+    emptyTMP();
+});
+process.on("SIGTERM", function () {
+    emptyTMP();
+});

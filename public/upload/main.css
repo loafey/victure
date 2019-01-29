@@ -8,6 +8,11 @@ body {
     color: white;
 }
 
+input {
+    outline: none;
+    max-width: 100%;
+}
+
 .upload-div {
     border-radius: 5px;
     border: solid rgba(255, 255, 255, 0.15) 5px;

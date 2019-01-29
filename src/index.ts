@@ -6,6 +6,7 @@ import rimraf = require("rimraf");
 import fs = require("fs");
 import path = require("path");
 import crypto = require("crypto");
+import passport = require("passport");
 //Path
 
 var app = express();
@@ -89,4 +90,11 @@ app.get("/", (req, res) => {
 app.use(express.static("./public"));
 app.listen(port);
 
-process.on("SIGINT", () => void {});
+
+process.on("SIGINT", () => {
+    emptyTMP();
+});
+
+process.on("SIGTERM", () => {
+    emptyTMP();
+});
