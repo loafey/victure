@@ -7,7 +7,7 @@ import fs = require("fs");
 import path = require("path");
 import crypto = require("crypto");
 import passport = require("passport");
-//Path
+
 
 var app = express();
 var tempFolder: string = __dirname + "/tmp";
@@ -67,7 +67,8 @@ var temporaryHost: Function = (fileName: any, fileExtension: string, deleteTime:
     var serverEnded: boolean = false;
     app.get("/files/" + fileName, (req, res) => {
         if (serverEnded == false) {
-            res.sendFile(tempFolder + "/" + fileName + fileExtension);
+            res.sendFile(__dirname)
+            //res.sendFile(tempFolder + "/" + fileName + fileExtension);
             deleteHost(req, res, deleteTime);
         } else {
             res.redirect("/");

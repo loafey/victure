@@ -8,7 +8,6 @@ var rimraf = require("rimraf");
 var fs = require("fs");
 var path = require("path");
 var crypto = require("crypto");
-//Path
 var app = express();
 var tempFolder = __dirname + "/tmp";
 var port = process.env.PORT || String(3000);
@@ -55,7 +54,7 @@ app.post("/file_upload", upload.single("image"), function (req, res) {
 });
 var temporaryHost = function (fileName, fileExtension, deleteTime) {
     var serverEnded = false;
-    app.get("/files/" + fileName, function (req, res) {
+    app.post("/files/" + fileName, function (req, res) {
         if (serverEnded == false) {
             res.sendFile(tempFolder + "/" + fileName + fileExtension);
             deleteHost(req, res, deleteTime);

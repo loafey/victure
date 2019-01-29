@@ -21,6 +21,7 @@ function sendImage() {
     request.open("POST", "/file_upload", true);
     request.setRequestHeader("file", "image");
     request.send(formContent);
+
     request.onreadystatechange = function () {
         if (request.readyState == XMLHttpRequest.DONE) {
             window.open(request.responseText, "_blank");
