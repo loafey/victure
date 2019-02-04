@@ -15,12 +15,16 @@ var upload = multer({
     dest: tempFolder
 });
 console.log("Hosting on: " + port);
-var emptyTMP = function () {
+var emptyTMP = function (callback) {
     fs.access(tempFolder, function (err) {
         if (!err) {
             rimraf(tempFolder, function () {
                 fs.mkdir(tempFolder, function () { return void {}; });
+                callback();
             });
+        }
+        else {
+            callback();
         }
     });
 };
@@ -54,8 +58,9 @@ app.post("/file_upload", upload.single("image"), function (req, res) {
 });
 var temporaryHost = function (fileName, fileExtension, deleteTime) {
     var serverEnded = false;
-    app.post("/files/" + fileName, function (req, res) {
+    app.get("/files/" + fileName, function (req, res) {
         if (serverEnded == false) {
+            //res.sendFile(__dirname)
             res.sendFile(tempFolder + "/" + fileName + fileExtension);
             deleteHost(req, res, deleteTime);
         }
@@ -72,13 +77,18 @@ var temporaryHost = function (fileName, fileExtension, deleteTime) {
     };
 };
 app.get("/", function (req, res) {
-    res.send("<p>heuua</p>");
+    //res.send("<a href='/upload'>upload</a>");
+    res.redirect("/upload");
 });
 app.use(express.static("./public"));
 app.listen(port);
 process.on("SIGINT", function () {
-    emptyTMP();
+    emptyTMP(function () {
+        process.exit();
+    });
 });
 process.on("SIGTERM", function () {
-    emptyTMP();
+    emptyTMP(function () {
+        process.exit();
+    });
 });

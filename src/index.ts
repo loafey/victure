@@ -6,7 +6,7 @@ import rimraf = require("rimraf");
 import fs = require("fs");
 import path = require("path");
 import crypto = require("crypto");
-import passport = require("passport");
+import { callbackify } from "util";
 
 
 var app = express();
@@ -18,7 +18,7 @@ var upload: multer = multer({
 
 console.log("Hosting on: " + port);
 
-var emptyTMP: Function = () => {
+var emptyTMP: Function = (callback: Function) => {
     fs.access(tempFolder, (err) => {
         if (!err) {
             rimraf(tempFolder, () => {
@@ -67,14 +67,13 @@ var temporaryHost: Function = (fileName: any, fileExtension: string, deleteTime:
     var serverEnded: boolean = false;
     app.get("/files/" + fileName, (req, res) => {
         if (serverEnded == false) {
-            res.sendFile(__dirname)
-            //res.sendFile(tempFolder + "/" + fileName + fileExtension);
+            //res.sendFile(__dirname)
+            res.sendFile(tempFolder + "/" + fileName + fileExtension);
             deleteHost(req, res, deleteTime);
         } else {
             res.redirect("/");
         }
     });
-
     var deleteHost: Function = (req, res, deleteTime) => {
         setTimeout(() => {
             serverEnded = true;
@@ -85,17 +84,23 @@ var temporaryHost: Function = (fileName: any, fileExtension: string, deleteTime:
 }
 
 app.get("/", (req, res) => {
-    res.send("<p>heuua</p>");
+    //res.send("<a href='/upload'>upload</a>");
+    res.redirect("/upload");
 });
 
 app.use(express.static("./public"));
 app.listen(port);
 
 
-process.on("SIGINT", () => {
-    emptyTMP();
+
+/*process.on("SIGINT", () => {
+    emptyTMP(() => {
+        process.exit();
+    });
 });
 
 process.on("SIGTERM", () => {
-    emptyTMP();
-});
+    emptyTMP(() => {
+        process.exit();
+    });
+});*/
