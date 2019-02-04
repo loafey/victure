@@ -5,8 +5,8 @@ import express = require("express");
 import rimraf = require("rimraf");
 import fs = require("fs");
 import path = require("path");
-import crypto = require("crypto");
-import { callbackify } from "util";
+import pug = require("pug");
+//import crypto = require("crypto");
 
 
 var app = express();
@@ -29,25 +29,26 @@ var emptyTMP: Function = (callback: Function) => {
 }
 emptyTMP();
 
+app.set('view engine', 'pug')
 app.post("/file_upload", upload.single("image"), (req: any, res: any) => {
     var file: string = tempFolder + "/" + req.file.filename + path.extname(req.file.originalname);
 
     res.send("/files/" + req.file.filename);
 
-    var hashSha256: crypto.Hash = crypto.createHash("sha256");
-    hashSha256.update(req.body.password);
-    var passwordHash: String = hashSha256.digest("hex");
+    //var hashSha256: crypto.Hash = crypto.createHash("sha256");
+    //hashSha256.update(req.body.password);
+    //var passwordHash: String = hashSha256.digest("hex");
 
     var fileObj: Object = new Object({
         name: req.file.originalname,
         filename: req.file.filename,
         size: req.file.size,
         mimetype: req.file.mimetype,
-        passwordHash: passwordHash,
+        //passwordHash: passwordHash,
         deleteTime: req.body.deleteTime
     });
 
-    hashSha256.end();
+    //hashSha256.end();
 
     var fileObjJson: string = JSON.stringify(fileObj);
 
@@ -68,6 +69,14 @@ var temporaryHost: Function = (fileName: any, fileExtension: string, deleteTime:
     app.get("/files/" + fileName, (req, res) => {
         if (serverEnded == false) {
             //res.sendFile(__dirname)
+            res.render("files/index", { image: "/files/temp/" + fileName });
+            deleteHost(req, res, deleteTime);
+        } else {
+            res.redirect("/");
+        }
+    });
+    app.get("/files/temp/" + fileName, (req, res) => {
+        if (serverEnded == false) {
             res.sendFile(tempFolder + "/" + fileName + fileExtension);
             deleteHost(req, res, deleteTime);
         } else {
@@ -79,28 +88,17 @@ var temporaryHost: Function = (fileName: any, fileExtension: string, deleteTime:
             serverEnded = true;
             fs.unlink(tempFolder + "/" + fileName + fileExtension, () => void {});
             fs.unlink(tempFolder + "/" + fileName + ".json", () => void {});
-        }, deleteTime * 60000);
+        }, deleteTime * 60000);//60000 is a min.
     }
 }
 
 app.get("/", (req, res) => {
-    //res.send("<a href='/upload'>upload</a>");
     res.redirect("/upload");
 });
 
+app.get("/upload", (req, res) => {
+    res.render("upload/index", {})
+})
+
 app.use(express.static("./public"));
 app.listen(port);
-
-
-
-/*process.on("SIGINT", () => {
-    emptyTMP(() => {
-        process.exit();
-    });
-});
-
-process.on("SIGTERM", () => {
-    emptyTMP(() => {
-        process.exit();
-    });
-});*/

@@ -23,6 +23,7 @@
     "express-session": "^1.15.6",
     "mongodb": "^3.1.13",
     "multer": "^1.4.1",
+    "pug": "^2.0.3",
     "rimraf": "^2.6.3",
     "v8-compile-cache": "^2.0.2"
   }

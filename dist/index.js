@@ -7,7 +7,7 @@ var express = require("express");
 var rimraf = require("rimraf");
 var fs = require("fs");
 var path = require("path");
-var crypto = require("crypto");
+//import crypto = require("crypto");
 var app = express();
 var tempFolder = __dirname + "/tmp";
 var port = process.env.PORT || String(3000);
@@ -20,30 +20,27 @@ var emptyTMP = function (callback) {
         if (!err) {
             rimraf(tempFolder, function () {
                 fs.mkdir(tempFolder, function () { return void {}; });
-                callback();
             });
-        }
-        else {
-            callback();
         }
     });
 };
 emptyTMP();
+app.set('view engine', 'pug');
 app.post("/file_upload", upload.single("image"), function (req, res) {
     var file = tempFolder + "/" + req.file.filename + path.extname(req.file.originalname);
     res.send("/files/" + req.file.filename);
-    var hashSha256 = crypto.createHash("sha256");
-    hashSha256.update(req.body.password);
-    var passwordHash = hashSha256.digest("hex");
+    //var hashSha256: crypto.Hash = crypto.createHash("sha256");
+    //hashSha256.update(req.body.password);
+    //var passwordHash: String = hashSha256.digest("hex");
     var fileObj = new Object({
         name: req.file.originalname,
         filename: req.file.filename,
         size: req.file.size,
         mimetype: req.file.mimetype,
-        passwordHash: passwordHash,
+        //passwordHash: passwordHash,
         deleteTime: req.body.deleteTime
     });
-    hashSha256.end();
+    //hashSha256.end();
     var fileObjJson = JSON.stringify(fileObj);
     fs.writeFile(tempFolder + "/" + req.file.filename + ".json", fileObjJson, function () { return void {}; });
     fs.rename(req.file.path, file, function (err) {
@@ -61,6 +58,15 @@ var temporaryHost = function (fileName, fileExtension, deleteTime) {
     app.get("/files/" + fileName, function (req, res) {
         if (serverEnded == false) {
             //res.sendFile(__dirname)
+            res.render("files/index", { image: "/files/temp/" + fileName });
+            deleteHost(req, res, deleteTime);
+        }
+        else {
+            res.redirect("/");
+        }
+    });
+    app.get("/files/temp/" + fileName, function (req, res) {
+        if (serverEnded == false) {
             res.sendFile(tempFolder + "/" + fileName + fileExtension);
             deleteHost(req, res, deleteTime);
         }
@@ -73,22 +79,14 @@ var temporaryHost = function (fileName, fileExtension, deleteTime) {
             serverEnded = true;
             fs.unlink(tempFolder + "/" + fileName + fileExtension, function () { return void {}; });
             fs.unlink(tempFolder + "/" + fileName + ".json", function () { return void {}; });
-        }, deleteTime * 60000);
+        }, deleteTime * 60000); //60000 is a min.
     };
 };
 app.get("/", function (req, res) {
-    //res.send("<a href='/upload'>upload</a>");
     res.redirect("/upload");
+});
+app.get("/upload", function (req, res) {
+    res.render("upload/index", {});
 });
 app.use(express.static("./public"));
 app.listen(port);
-process.on("SIGINT", function () {
-    emptyTMP(function () {
-        process.exit();
-    });
-});
-process.on("SIGTERM", function () {
-    emptyTMP(function () {
-        process.exit();
-    });
-});

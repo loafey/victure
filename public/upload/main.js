@@ -6,7 +6,7 @@ function sendImage() {
     formContent.append("image", fileToUpload);
     formContent.append("name", "file");
 
-    formContent.append("password", document.getElementById("upload-after-buttons-password").value);
+    //formContent.append("password", document.getElementById("upload-after-buttons-password").value);
 
     var selectedTime = 0;
     var timeoutRange = document.getElementById("timeout-range").value;
