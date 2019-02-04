@@ -15,9 +15,6 @@
   "license": "ISC",
   "homepage": "https://bitbucket.org/samhamnam/victure#readme",
   "dependencies": {
-    "@types/express": "^4.16.1",
-    "@types/node": "^10.12.19",
-    "@types/passport": "^1.0.0",
     "crypto": "^1.0.1",
     "express": "^4.16.4",
     "express-session": "^1.15.6",
@@ -26,6 +23,12 @@
     "multer": "^1.4.1",
     "pug": "^2.0.3",
     "rimraf": "^2.6.3",
+    "v8": "^0.1.0",
     "v8-compile-cache": "^2.0.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.16.1",
+    "@types/node": "^10.12.21",
+    "typescript": "^3.3.1"
   }
 }
