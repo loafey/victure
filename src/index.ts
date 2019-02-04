@@ -5,7 +5,7 @@ import express = require("express");
 import rimraf = require("rimraf");
 import fs = require("fs");
 import path = require("path");
-import pug = require("pug");
+import moment = require("moment");
 //import crypto = require("crypto");
 
 
@@ -66,11 +66,12 @@ app.post("/file_upload", upload.single("image"), (req: any, res: any) => {
 
 var temporaryHost: Function = (fileName: any, fileExtension: string, deleteTime: any) => {
     var serverEnded: boolean = false;
+    var timeLeft: Array<number> = [deleteTime, moment().add(parseFloat(deleteTime), "minutes").format("hh:mm:ss")];
     app.get("/files/" + fileName, (req, res) => {
         if (serverEnded == false) {
             //res.sendFile(__dirname)
-            res.render("files/index", { image: "/files/temp/" + fileName });
-            deleteHost(req, res, deleteTime);
+            res.render("files/index", { pugImage: "/files/temp/" + fileName, pugDeleteTime: timeLeft[1] });
+            deleteHost(deleteTime);
         } else {
             res.redirect("/");
         }
@@ -78,12 +79,12 @@ var temporaryHost: Function = (fileName: any, fileExtension: string, deleteTime:
     app.get("/files/temp/" + fileName, (req, res) => {
         if (serverEnded == false) {
             res.sendFile(tempFolder + "/" + fileName + fileExtension);
-            deleteHost(req, res, deleteTime);
+            deleteHost(deleteTime);
         } else {
             res.redirect("/");
         }
     });
-    var deleteHost: Function = (req, res, deleteTime) => {
+    var deleteHost: Function = (deleteTime: number) => {
         setTimeout(() => {
             serverEnded = true;
             fs.unlink(tempFolder + "/" + fileName + fileExtension, () => void {});
