@@ -8,14 +8,15 @@ body {
     color: white;
 }
 
-img {
+.main-container {
+    display: grid;
+    grid-template-columns: 100px minmax(40%, 45%) 1fr;
+    grid-template-rows: 64px 1fr auto;
     width: 100%;
 }
 
-.main-container {
-    display: grid;
-    grid-template-columns: 100px 50% 1fr;
-    grid-template-rows: 64px 1fr auto;
+.image-container img {
+    width: 100%;
 }
 
 .image-container {
@@ -23,7 +24,7 @@ img {
     display: grid;
     grid-template-rows: auto 1fr 44px;
     border-radius: 15px;
-    width: auto;
+    width: 100%;
     grid-row: 2;
     grid-column: 2;
     margin: 0;
@@ -33,35 +34,36 @@ img {
 
 .image-container .title {
     position: relative;
-    padding-left: 25px;
-    width: calc(40vw - 25px);
+    width: calc(100%);
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
 }
 
 .image-container .title h2 {
     font-family: 'Raleway', sans-serif;
+    padding-left: 25px;
 }
 
 .image-container .title a {
+    text-align: right;
     position: absolute;
-    margin-right: 10px;
-    right: 0;
-    top: 25px;
+    bottom: 0;
+    right: 5px;
+    font-size: 10px;
 }
 
 .image-container .delete {
     position: relative;
-    width: calc(40vw);
+    width: 100%;
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
     line-height: 10px;
 }
 
-.image-container .delete p {
+.image-container .delete a {
     position: absolute;
-    right: 25px;
-    top: 0px;
+    right: 5px;
+    bottom: 15px;
 }
 
 .image-container .delete button {
@@ -81,4 +83,21 @@ img {
 
 .image-container .delete button:active {
     background-color: rgba(0, 0, 0, 0.25);
+}
+
+@media only screen and (max-width: 1100px) {
+    .main-container {
+        grid-template-columns: minmax(0%, 10%) 50% minmax(0%, 10%);
+    }
+
+    .image-container img {
+        height: 100%;
+        width: 1fr;
+    }
+
+    .image-container .title h2 {
+        font-family: 'Raleway', sans-serif;
+        padding-left: 25px;
+        font-size: 2vw;
+    }
 }

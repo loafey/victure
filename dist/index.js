@@ -56,7 +56,8 @@ app.post("/file_upload", upload.single("image"), function (req, res) {
 });
 var temporaryHost = function (fileName, fileExtension, deleteTime, originalTitle) {
     var serverEnded = false;
-    var deleteAt = moment().add(parseFloat(deleteTime), "minutes").format("HH:mm:ss");
+    var deleteAt = moment().add(parseFloat(deleteTime), "minutes").format("MMMM Do YYYY, HH:mm:ss");
+    var uploadTime = moment().format("MMMM Do YYYY, HH:mm:ss");
     app.get("/files/" + fileName, function (req, res) {
         if (serverEnded == false) {
             //res.sendFile(__dirname)
@@ -64,7 +65,7 @@ var temporaryHost = function (fileName, fileExtension, deleteTime, originalTitle
                 pugImage: "/files/temp/" + fileName,
                 pugDeleteTime: deleteAt,
                 pugImageTitle: originalTitle,
-                pugUploadTime: moment().format("MMMM Do YYYY, HH:mm:ss")
+                pugUploadTime: uploadTime
             });
             deleteHost(deleteTime);
         }
