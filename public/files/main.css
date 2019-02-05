@@ -34,10 +34,12 @@ body {
 
 .image-container .title {
     position: relative;
-    width: calc(100%);
+    overflow: hidden;
+    width: calc(100% - 25px);
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
     text-overflow: ellipsis;
+    padding-right: 25px;
 }
 
 .image-container .title h2 {
