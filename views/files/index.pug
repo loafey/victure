@@ -10,3 +10,7 @@ html(lang="en")
     body
         img(src= pugImage alt="Image")
         h1 Deletes at: #{pugDeleteTime}
+
+        script(src="/files/moment.min.js")
+        script var deleteTime = "#{pugDeleteTime}";
+        script(src="/files/main.js")
