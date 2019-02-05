@@ -102,3 +102,7 @@ updateDeleteTimer();
 function reloadPage() {
     location.reload();
 }
+
+function openLink(link) {
+    window.open(link, "_self");
+}

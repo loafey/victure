@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto');
-@import url("https://samhamnam.github.io/projects/de/defaultElements/defaultElements.css");
+@import url('https://fonts.googleapis.com/css?family=Raleway');
 
 body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
-    background-color: black;
+    background-color: rgb(24, 24, 24);
     color: white;
 }
 
@@ -13,18 +13,51 @@ input {
     max-width: 100%;
 }
 
+.top-bar {
+    position: absolute;
+    top: 0px;
+    height: 64px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    box-shadow: 0px 5px 55px 0px rgba(0, 0, 0, 0.5);
+}
+
+.top-bar button {
+    font-family: 'Raleway', sans-serif;
+    background: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+    transition-duration: 0.1s;
+}
+
+.top-bar button:active {
+    background-color: rgba(0, 0, 0, 0.25);
+}
+
+#victure-button {
+    font-family: 'Raleway', sans-serif;
+    font-size: 32px;
+    border-right: 3px rgba(0, 0, 0, 0.2) solid;
+}
+
 .upload-div {
+    position: relative;
     border-radius: 5px;
-    border: solid rgba(255, 255, 255, 0.15) 5px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr;
     grid-row: 1;
     grid-column: 2;
+    top: 84px;
+    font-family: 'Raleway', sans-serif;
+    background-color: rgb(50, 50, 50);
+    box-shadow: 0px 10px 30px 0px rgba(0, 0, 0, 0.5);
 }
 
 .upload-button {
-    background-color: rgba(255, 255, 255, 0.15);
+    background-color: rgba(0, 0, 0, 0.2);
     border-radius: 10px;
     grid-column-start: 2;
     grid-column-end: 4;
@@ -41,7 +74,6 @@ input {
     grid-template-columns: 1fr 300px 1fr;
     grid-template-rows: 300px;
     margin: 0;
-    background: linear-gradient(to bottom, rgba(53, 11, 57, 1) 0%, rgba(0, 0, 0, 1) 100%);
     transition-duration: 0.5s;
 }
 
@@ -62,13 +94,10 @@ input {
     max-width: 100%;
 }
 
-.main-container-title {
-    margin: 10px;
-}
-
 .upload-arrow {
     font-size: 20px;
-    background-color: black;
+    background-color: rgb(50, 50, 50);
+
     color: wheat;
     padding: 5px;
     border-radius: 5px 5px 5px 5px;

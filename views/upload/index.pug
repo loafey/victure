@@ -8,7 +8,10 @@ html(lang="en")
         link(rel="stylesheet", href="/upload/main.css")
 
     body
-        h1.main-container-title Victure
+        div.top-bar
+                button#victure-button(onclick="openLink('/');") Victure
+                button#upload-button(onclick="openLink('/upload');") Upload
+                button(onclick="openLink('/faq');") FAQ
         div.upload-container#upload-container
             div#test-image(style="display:none;")
                 img#test-image-inside(src="")
