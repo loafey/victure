@@ -70,7 +70,7 @@ var temporaryHost: Function = (fileName: any, fileExtension: string, deleteTime:
     app.get("/files/" + fileName, (req, res) => {
         if (serverEnded == false) {
             //res.sendFile(__dirname)
-            res.render("files/index", { pugImage: "/files/temp/" + fileName, pugDeleteTime: timeLeft[0] });
+            res.render("files/index", { pugImage: "/files/temp/" + fileName, pugDeleteTime: timeLeft[1] });
             deleteHost(deleteTime);
         } else {
             res.redirect("/");

@@ -1,7 +1,12 @@
 /*console.log(moment().remove(moment(), "minutes").format("hh:mm:ss"));
 console.log(deleteTime);*/
 
-var now = moment();
-var deletedAt = now.clone().hour(10).minute(deleteTime).second(0);
+var now = moment().format("hh:mm:ss");
+console.log(now);
+var deletedAt = deleteTime;
+console.log(deletedAt);
 
-console.log(deletedAt.from(now));
+var duration = moment.duration(moment().diff(now, deletedAt), "minutes");
+var hours = duration.asMinutes();
+
+console.log(hours);
