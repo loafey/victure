@@ -11,8 +11,40 @@ body {
 .main-container {
     display: grid;
     grid-template-columns: 1fr 500px 1fr;
-    grid-template-rows: 64px 1fr auto;
+    grid-template-rows: 64px 40px 1fr 40px;
     width: 100%;
+}
+
+.top-bar {
+    grid-column-start: 1;
+    grid-column-end: 4;
+    /*border-bottom: 5px rgba(0, 0, 0, 0.5) solid;*/
+    box-shadow: 0px 5px 55px 0px rgba(0, 0, 0, 0.5);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.top-bar button {
+    font-family: 'Raleway', sans-serif;
+    background: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+    transition-duration: 0.1s;
+}
+
+.top-bar button:active {
+    background-color: rgba(0, 0, 0, 0.25);
+}
+
+#victure-button {
+    font-family: 'Raleway', sans-serif;
+    font-size: 32px;
+    border-right: 3px rgba(0, 0, 0, 0.2) solid;
+}
+
+#upload-button {
+    border-right: 3px rgba(0, 0, 0, 0.2) solid;
 }
 
 .image-container img {
@@ -25,7 +57,7 @@ body {
     grid-template-rows: auto 1fr 44px;
     border-radius: 15px;
     width: 100%;
-    grid-row: 2;
+    grid-row: 3;
     grid-column: 2;
     margin: 0;
     box-shadow: 0px 5px 55px 0px rgba(0, 0, 0, 0.75);
@@ -75,7 +107,7 @@ body {
     padding-left: 20px;
     padding-right: 20px;
     border: none;
-    border-right: 3px rgba(0, 0, 0, 0.5) solid;
+    border-right: 3px rgba(0, 0, 0, 0.2) solid;
     color: white;
     background-color: transparent;
     font-family: 'Raleway', sans-serif;

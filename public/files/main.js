@@ -11,3 +11,7 @@ function copyLink() {
     document.execCommand("copy");
     linkEl.style.display = "none";
 }
+
+function openLink(link) {
+    window.open(link, "_self");
+}
