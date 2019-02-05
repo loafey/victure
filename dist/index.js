@@ -50,17 +50,22 @@ app.post("/file_upload", upload.single("image"), function (req, res) {
             console.log(err);
         }
         else {
-            temporaryHost(req.file.filename, path.extname(req.file.originalname), req.body.deleteTime);
+            temporaryHost(req.file.filename, path.extname(req.file.originalname), req.body.deleteTime, req.file.originalname);
         }
     });
 });
-var temporaryHost = function (fileName, fileExtension, deleteTime) {
+var temporaryHost = function (fileName, fileExtension, deleteTime, originalTitle) {
     var serverEnded = false;
-    var timeLeft = [deleteTime, moment().add(parseFloat(deleteTime), "minutes").format("hh:mm:ss")];
+    var deleteAt = moment().add(parseFloat(deleteTime), "minutes").format("HH:mm:ss");
     app.get("/files/" + fileName, function (req, res) {
         if (serverEnded == false) {
             //res.sendFile(__dirname)
-            res.render("files/index", { pugImage: "/files/temp/" + fileName, pugDeleteTime: timeLeft[1] });
+            res.render("files/index", {
+                pugImage: "/files/temp/" + fileName,
+                pugDeleteTime: deleteAt,
+                pugImageTitle: originalTitle,
+                pugUploadTime: moment().format("MMMM Do YYYY, HH:mm:ss")
+            });
             deleteHost(deleteTime);
         }
         else {

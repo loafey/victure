@@ -8,9 +8,15 @@ html(lang="en")
         link(rel="stylesheet", href="/main.css")
         link(rel="stylesheet", href="/files/main.css")
     body
-        img(src= pugImage alt="Image")
-        h1 Deletes at: #{pugDeleteTime}
+        div.main-container
+            div.image-container
+                div.title
+                    h2 #{pugImageTitle}
+                    a Uploaded at: #{pugUploadTime}
+                img(src= pugImage alt="Image")
+                div.delete
+                    button(onclick="copyLink();") Share
+                    p Deletes at: #{pugDeleteTime}
 
         script(src="/files/moment.js")
-        script var deleteTime = "#{pugDeleteTime}";
         script(src="/files/main.js")

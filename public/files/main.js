@@ -1,12 +1,13 @@
-/*console.log(moment().remove(moment(), "minutes").format("hh:mm:ss"));
-console.log(deleteTime);*/
+var linkEl = document.createElement("input");
+document.body.appendChild(linkEl);
+linkEl.style.display = "none";
+linkEl.style.position = "absolute";
+linkEl.value = window.location.href;
 
-var now = moment().format("hh:mm:ss");
-console.log(now);
-var deletedAt = deleteTime;
-console.log(deletedAt);
-
-var duration = moment.duration(moment().diff(now, deletedAt), "minutes");
-var hours = duration.asMinutes();
-
-console.log(hours);
+function copyLink() {
+    //toast("Link copied!", 5);
+    linkEl.style.display = "block";
+    linkEl.select();
+    document.execCommand("copy");
+    linkEl.style.display = "none";
+}
