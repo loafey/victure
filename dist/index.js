@@ -91,7 +91,10 @@ var temporaryHost = function (fileName, fileExtension, deleteTime, originalTitle
     };
 };
 app.get("/", function (req, res) {
-    res.redirect("/upload");
+    res.render("index", {});
+});
+app.get("/faq", function (req, res) {
+    res.render("faq/index", {});
 });
 app.get("/upload", function (req, res) {
     res.render("upload/index", {});

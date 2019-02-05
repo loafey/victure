@@ -100,11 +100,15 @@ var temporaryHost: Function = (fileName: any, fileExtension: string, deleteTime:
 }
 
 app.get("/", (req, res) => {
-    res.redirect("/upload");
+    res.render("index", {})
+});
+
+app.get("/faq", (req, res) => {
+    res.render("faq/index", {})
 });
 
 app.get("/upload", (req, res) => {
-    res.render("upload/index", {})
+    res.render("upload/index", {});
 })
 
 app.use(express.static("./public"));
