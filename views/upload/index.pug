@@ -13,8 +13,18 @@ html(lang="en")
                 button#upload-button-top(onclick="openLink('/upload');") Upload
                 button(onclick="openLink('/faq');") FAQ
         div.upload-container#upload-container
-            div#test-image(style="display:none;")
-                img#test-image-inside(src="")
+            div#upload-after-container(style="display:none;")
+                h3#upload-after-title File:
+                div#test-image
+                    img#test-image-inside(src="")
+
+                div#upload-after-buttons
+                    button(onclick="reloadPage();" style="background-color: red;") Cancel
+                    button(onclick="sendImage();" style="background-color: green;") Upload
+                    span
+                        a Timeout:
+                        input#timeout-range(oninput="updateDeleteTimer();" min="1" max="12" value="3" type="range")
+                    a#timeout-time-a 1:25h
 
             div.upload-div#upload-div(ondrop="dropHandler(event);" ondragover="dragOverHandler(event);")
                 div.upload-button#upload-button(onclick="fileUpload()")
@@ -22,12 +32,5 @@ html(lang="en")
                     a.upload-arrow ↑
                     input#file-input(type="file" name="file-input" style="display: none;" accept="^image/*" onchange="fileUploadButton(this.files);")
 
-            div#upload-after-buttons(style="display: none;")
-                button(onclick="reloadPage();" style="background-color: red;") Cancel
-                button(onclick="sendImage();" style="background-color: green;") Upload
-                span
-                    a Timeout:
-                    input#timeout-range(oninput="updateDeleteTimer();" min="1" max="12" value="3" type="range")
-                a#timeout-time-a 1:25h
 
     script(src="/upload/main.js")

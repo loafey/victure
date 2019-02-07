@@ -54,10 +54,10 @@ input {
     grid-template-rows: 1fr 1fr 1fr 1fr;
     grid-row: 1;
     grid-column: 2;
-    top: 84px;
     font-family: 'Raleway', sans-serif;
     background-color: rgb(50, 50, 50);
     box-shadow: 0px 10px 30px 0px rgba(0, 0, 0, 0.5);
+    min-height: 300px;
 }
 
 .upload-button {
@@ -78,7 +78,7 @@ input {
     display: grid;
     text-align: center;
     grid-template-columns: 1fr 300px 1fr;
-    grid-template-rows: 300px;
+    grid-template-rows: auto 20px;
     margin: 0;
     transition-duration: 0.5s;
 }
@@ -89,14 +89,10 @@ input {
 
 #test-image {
     width: 100%;
-    grid-row: 1;
-    grid-column: 2;
-    border: solid rgba(255, 255, 255, 0.15) 5px;
-    margin-left: -2.5px;
+    margin-bottom: -3px;
 }
 
-#test-image img {
-    max-width: 100%;
+#test-image-inside {
     max-width: 100%;
 }
 
@@ -106,7 +102,7 @@ input {
 
     color: wheat;
     padding: 5px;
-    border-radius: 5px 5px 5px 5px;
+    border-radius: 5px;
     padding-right: 10px;
     padding-left: 10px;
 }
@@ -114,14 +110,22 @@ input {
 #upload-after-buttons {
     grid-row: 2;
     width: 100%;
-    height: 100%;
     grid-column: 2;
     font-size: 20px;
-    margin-top: 10px;
-    background-color: rgba(245, 222, 179, 0.1);
     border-radius: 0 0 20px 20px;
-    border: 5px rgba(245, 222, 179, 0.1) solid;
-    margin-left: -2.5px;
+}
+
+#upload-after-container {
+    grid-column: 2;
+    background-color: rgb(50, 50, 50);
+    padding-bottom: 25px;
+    border-radius: 5px;
+    box-shadow: 0px 5px 55px 0px rgba(0, 0, 0, 0.5);
+}
+
+#upload-after-title {
+    text-align: left;
+    margin-left: 10px
 }
 
 #upload-after-buttons button {
@@ -158,7 +162,7 @@ input {
 }
 
 #upload-after-buttons input[type=range]::-webkit-slider-runnable-track {
-    background-color: white;
+    background-color: transparent;
     border: none;
 }
 

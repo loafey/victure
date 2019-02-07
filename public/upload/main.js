@@ -42,10 +42,8 @@ function dropHandler(ev) {
 
     if (ev.dataTransfer.items) {
         for (i = 0; i < ev.dataTransfer.items.length; i++) {
-            if ((ev.dataTransfer.items[i].kind === "file") && (ev.dataTransfer.items[i].type.match("^image/*"))) {
-                //document.getElementById("test-image").style.backgroundImage = "url(" + URL.createObjectURL(ev.dataTransfer.files[i]) + ")";
+            if (ev.dataTransfer.items[i].kind === "file") {
                 document.getElementById("test-image-inside").src = URL.createObjectURL(ev.dataTransfer.files[i]);
-                //fileToUpload = URL.createObjectURL(ev.dataTransfer.files[i]);
                 fileToUpload = ev.dataTransfer.files[i];
                 uploadFinished();
             }
@@ -73,16 +71,8 @@ function removeDragData(ev) {
 }
 
 function uploadFinished() {
-    setTimeout(function () {
-        if (document.getElementById("test-image-inside").clientHeight <= 500) {
-            document.getElementById("upload-container").style.gridTemplateRows = document.getElementById("test-image-inside").clientHeight + 10 + "px";
-        } else {
-            document.getElementById("upload-container").style.gridTemplateRows = "500px";
-        }
-    }, 100);
     document.getElementById("upload-div").style.display = "none";
-    document.getElementById("test-image").style.display = "block";
-    document.getElementById("upload-after-buttons").style.display = "block";
+    document.getElementById("upload-after-container").style.display = "block";
 }
 
 function updateDeleteTimer() {
@@ -95,7 +85,7 @@ function updateDeleteTimer() {
         selectedTime = timeoutRange * 5;
     }
 
-    document.getElementById("timeout-time-a").innerHTML = "Automaticly deletes after " + selectedTime + " minutes.";
+    document.getElementById("timeout-time-a").innerHTML = "Automatically deletes after " + selectedTime + " minutes.";
 }
 updateDeleteTimer();
 
