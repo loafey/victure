@@ -1,7 +1,7 @@
 /*jshint esversion: 6 */
 var fileToUpload;
 
-function sendImage() {
+function sendFile() {
     var formContent = new FormData();
     formContent.append("image", fileToUpload);
     formContent.append("name", "file");
@@ -43,7 +43,8 @@ function dropHandler(ev) {
     if (ev.dataTransfer.items) {
         for (i = 0; i < ev.dataTransfer.items.length; i++) {
             if (ev.dataTransfer.items[i].kind === "file") {
-                document.getElementById("test-image-inside").src = URL.createObjectURL(ev.dataTransfer.files[i]);
+                //document.getElementById("test-image-inside").src = URL.createObjectURL(ev.dataTransfer.files[i]);
+                setImage(ev.dataTransfer.files[i]);
                 fileToUpload = ev.dataTransfer.files[i];
                 uploadFinished();
             }
@@ -52,8 +53,21 @@ function dropHandler(ev) {
     removeDragData(ev);
 }
 
+function setImage(file) {
+    if (file.type.includes("image")) {
+        document.getElementById("test-image-inside").src = URL.createObjectURL(file);
+    } else {
+        var imageParent = document.getElementById("test-image-inside").parentElement;
+        imageParent.removeChild(document.getElementById("test-image-inside"));
+        var fileNameElement = document.createElement("p");
+        fileNameElement.innerHTML = "<img src='/upload/file.svg' width='22px' style='filter: invert(0%)'> " + file.name;
+        imageParent.appendChild(fileNameElement);
+    }
+    console.log(file.type);
+}
+
 function fileUploadButton(file) {
-    document.getElementById("test-image-inside").src = URL.createObjectURL(file[0]);
+    setImage(file[0]);
     fileToUpload = file[0];
     uploadFinished();
 }

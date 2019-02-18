@@ -20,7 +20,7 @@ html(lang="en")
 
                 div#upload-after-buttons
                     button(onclick="reloadPage();" style="background-color: red;") Cancel
-                    button(onclick="sendImage();" style="background-color: green;") Upload
+                    button(onclick="sendFile();" style="background-color: green;") Upload
                     span
                         a Timeout:
                         input#timeout-range(oninput="updateDeleteTimer();" min="1" max="12" value="3" type="range")
