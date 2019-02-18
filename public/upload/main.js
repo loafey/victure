@@ -56,14 +56,31 @@ function dropHandler(ev) {
 function setImage(file) {
     if (file.type.includes("image")) {
         document.getElementById("test-image-inside").src = URL.createObjectURL(file);
+    } else if (file.type.includes("video")) {
+        var videoParent = getParentAndRemoveImage();
+        var videoPlayer = document.createElement("video");
+        var videoPlayerSource = document.createElement("source");
+        videoPlayerSource.src = URL.createObjectURL(file);
+        videoPlayerSource.type = file.type;
+        videoPlayer.controls = true;
+        videoPlayer.classList.add("videoPlayer");
+        videoPlayer.appendChild(videoPlayerSource);
+        videoParent.appendChild(videoPlayer);
     } else {
-        var imageParent = document.getElementById("test-image-inside").parentElement;
-        imageParent.removeChild(document.getElementById("test-image-inside"));
+        var fileParent = document.getElementById("test-image-inside").parentElement;
+        document.getElementById("test-image-inside").src = "/upload/file.svg";
+
         var fileNameElement = document.createElement("p");
-        fileNameElement.innerHTML = "<img src='/upload/file.svg' width='22px' style='filter: invert(0%)'> " + file.name;
-        imageParent.appendChild(fileNameElement);
+        fileNameElement.innerHTML = file.name;
+        fileParent.appendChild(fileNameElement);
     }
     console.log(file.type);
+
+    function getParentAndRemoveImage() {
+        var imageParent = document.getElementById("test-image-inside").parentElement;
+        imageParent.removeChild(document.getElementById("test-image-inside"));
+        return imageParent;
+    }
 }
 
 function fileUploadButton(file) {

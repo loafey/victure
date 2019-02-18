@@ -50,11 +50,11 @@ app.post("/file_upload", upload.single("image"), function (req, res) {
             console.log(err);
         }
         else {
-            temporaryHost(req.file.filename, path.extname(req.file.originalname), req.body.deleteTime, req.file.originalname);
+            temporaryHost(req.file.filename, path.extname(req.file.originalname), req.body.deleteTime, req.file.originalname, req.file.mimetype);
         }
     });
 });
-var temporaryHost = function (fileName, fileExtension, deleteTime, originalTitle) {
+var temporaryHost = function (fileName, fileExtension, deleteTime, originalTitle, mimetype) {
     var serverEnded = false;
     var deleteAt = moment().add(parseFloat(deleteTime), "minutes").format("MMMM Do YYYY, HH:mm:ss");
     var uploadTime = moment().format("MMMM Do YYYY, HH:mm:ss");
@@ -65,7 +65,8 @@ var temporaryHost = function (fileName, fileExtension, deleteTime, originalTitle
                 pugImage: "/files/temp/" + fileName,
                 pugDeleteTime: deleteAt,
                 pugImageTitle: originalTitle,
-                pugUploadTime: uploadTime
+                pugUploadTime: uploadTime,
+                pugFileType: mimetype
             });
             deleteHost(deleteTime);
         }
@@ -75,7 +76,15 @@ var temporaryHost = function (fileName, fileExtension, deleteTime, originalTitle
     });
     app.get("/files/temp/" + fileName, function (req, res) {
         if (serverEnded == false) {
-            res.sendFile(tempFolder + "/" + fileName + fileExtension);
+            if (mimetype.indexOf("video") !== -1) {
+                res.sendFile(tempFolder + "/" + fileName + fileExtension);
+            }
+            else if (mimetype.indexOf("image") !== -1) {
+                res.sendFile(tempFolder + "/" + fileName + fileExtension);
+            }
+            else {
+                res.download(tempFolder + "/" + fileName + fileExtension, originalTitle);
+            }
             deleteHost(deleteTime);
         }
         else {

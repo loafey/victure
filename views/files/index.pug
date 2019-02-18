@@ -16,10 +16,12 @@ html(lang="en")
                 div.title
                     h2 #{pugImageTitle}
                     //a Uploaded at: #{pugUploadTime}
-                img(src= pugImage alt="Image")
-                div.delete
-                    button(onclick="copyLink();") Share
+                img#uploadedImage(src= pugImage alt="Image")
+                div#delete.delete
+                    button(onclick="copyLink();") Copy link
                     a Deletes at: #{pugDeleteTime}
 
+        script.
+            pugFileType="#{pugFileType}";
         script(src="/files/moment.js")
         script(src="/files/main.js")

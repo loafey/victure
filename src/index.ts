@@ -59,12 +59,12 @@ app.post("/file_upload", upload.single("image"), (req: any, res: any) => {
             res.sendStatus(500);
             console.log(err);
         } else {
-            temporaryHost(req.file.filename, path.extname(req.file.originalname), req.body.deleteTime, req.file.originalname);
+            temporaryHost(req.file.filename, path.extname(req.file.originalname), req.body.deleteTime, req.file.originalname, req.file.mimetype);
         }
     });
 });
 
-var temporaryHost: Function = (fileName: any, fileExtension: string, deleteTime: any, originalTitle: string) => {
+var temporaryHost: Function = (fileName: any, fileExtension: string, deleteTime: any, originalTitle: string, mimetype: string) => {
     var serverEnded: boolean = false;
     var deleteAt: string = moment().add(parseFloat(deleteTime), "minutes").format("MMMM Do YYYY, HH:mm:ss");
     var uploadTime: string = moment().format("MMMM Do YYYY, HH:mm:ss")
@@ -75,7 +75,8 @@ var temporaryHost: Function = (fileName: any, fileExtension: string, deleteTime:
                 pugImage: "/files/temp/" + fileName,
                 pugDeleteTime: deleteAt,
                 pugImageTitle: originalTitle,
-                pugUploadTime: uploadTime
+                pugUploadTime: uploadTime,
+                pugFileType: mimetype
             });
             deleteHost(deleteTime);
         } else {
@@ -84,7 +85,13 @@ var temporaryHost: Function = (fileName: any, fileExtension: string, deleteTime:
     });
     app.get("/files/temp/" + fileName, (req, res) => {
         if (serverEnded == false) {
-            res.sendFile(tempFolder + "/" + fileName + fileExtension);
+            if (mimetype.indexOf("video") !== -1) {
+                res.sendFile(tempFolder + "/" + fileName + fileExtension);
+            } else if (mimetype.indexOf("image") !== -1) {
+                res.sendFile(tempFolder + "/" + fileName + fileExtension);
+            } else {
+                res.download(tempFolder + "/" + fileName + fileExtension, originalTitle);
+            }
             deleteHost(deleteTime);
         } else {
             res.redirect("/");

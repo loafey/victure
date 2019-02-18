@@ -17,7 +17,40 @@
    inkscape:version="0.92.3 (2405546, 2018-03-11)"
    sodipodi:docname="file.svg">
   <defs
-     id="defs2" />
+     id="defs2">
+    <filter
+       style="color-interpolation-filters:sRGB;"
+       inkscape:label="Drop Shadow"
+       id="filter4795">
+      <feFlood
+         flood-opacity="0.498039"
+         flood-color="rgb(0,0,0)"
+         result="flood"
+         id="feFlood4785" />
+      <feComposite
+         in="flood"
+         in2="SourceGraphic"
+         operator="in"
+         result="composite1"
+         id="feComposite4787" />
+      <feGaussianBlur
+         in="composite1"
+         stdDeviation="2"
+         result="blur"
+         id="feGaussianBlur4789" />
+      <feOffset
+         dx="0"
+         dy="0"
+         result="offset"
+         id="feOffset4791" />
+      <feComposite
+         in="SourceGraphic"
+         in2="offset"
+         operator="over"
+         result="composite2"
+         id="feComposite4793" />
+    </filter>
+  </defs>
   <sodipodi:namedview
      id="base"
      pagecolor="#ffffff"
@@ -26,10 +59,10 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="7.2407734"
-     inkscape:cx="44.227973"
+     inkscape:cx="20.059284"
      inkscape:cy="32.430876"
      inkscape:document-units="mm"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="g818"
      showgrid="false"
      units="px"
      inkscape:measure-start="0,0"
@@ -62,21 +95,21 @@
        id="path816"
        transform="matrix(0.26458333,0,0,0.26458333,0,280.06667)"
        d="M 32.703125,1.6386719 5.6699219,28.669922 v 29.904297 c 0,1.95868 1.5764756,3.535156 3.5351562,3.535156 H 55.046875 c 1.958681,0 3.535156,-1.576476 3.535156,-3.535156 V 5.1738281 c 0,-1.9586806 -1.576475,-3.5351562 -3.535156,-3.5351562 z"
-       style="fill:#181818;stroke-width:0.93541431;fill-opacity:1" />
+       style="fill:#323232;stroke-width:0.93541431;fill-opacity:1;filter:url(#filter4795)" />
   </g>
   <g
      inkscape:groupmode="layer"
      id="layer2"
      inkscape:label="lines">
     <rect
-       style="opacity:1;fill:#323232;fill-opacity:1;stroke:none;stroke-width:0.40177453;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="opacity:1;fill:#ffffff;fill-opacity:0.15075377;stroke:none;stroke-width:0.40177453;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect822"
        width="9"
        height="1.5"
        x="4"
        y="9.4333334" />
     <rect
-       style="opacity:1;fill:#323232;fill-opacity:1;stroke:none;stroke-width:0.40177453;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="opacity:1;fill:#ffffff;fill-opacity:0.15075377;stroke:none;stroke-width:0.40177453;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect822-7-9"
        width="9"
        height="1.5"
@@ -89,7 +122,7 @@
      id="layer1"
      transform="translate(0,-280.06667)">
     <path
-       style="fill:#323232;fill-opacity:1;stroke-width:0.93541431"
+       style="fill:#ffffff;fill-opacity:0.15075377;stroke-width:0.93541431"
        d="M 32.703125,1.6386719 5.6699219,28.669922 H 32.703125 Z"
        transform="matrix(0.26458333,0,0,0.26458333,0,280.06667)"
        id="rect10"

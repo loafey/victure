@@ -205,3 +205,7 @@ input {
         grid-column: 1;
     }
 }
+
+.videoPlayer {
+    width: 100%;
+}
