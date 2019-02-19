@@ -177,7 +177,7 @@ input {
     border: none;
 }
 
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 300px) {
     #test-image {
         grid-row: 1;
         grid-column: 1;
@@ -185,7 +185,7 @@ input {
 
     .upload-container {
         grid-template-columns: 1fr;
-        grid-template-rows: 300px;
+        grid-template-rows: auto;
     }
 
     .upload-div {
