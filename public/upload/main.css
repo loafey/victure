@@ -152,7 +152,8 @@ input {
 
 #upload-after-buttons input[type=range] {
     background-color: transparent;
-    margin-top: 10px;
+    position: relative;
+    top: 3px;
 }
 
 #upload-after-buttons input[type=range]::-webkit-slider-thumb {
