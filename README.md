@@ -1,5 +1,5 @@
 # Notice
-This version of the project has been archived and will not recieve any updates. It has been rewritten and can be found here  https://gitlab.com/samhamnam/victure or at https://vecture.xyz
+This version of the project has been archived and will not recieve any updates. It has been rewritten and can be found here  https://gitlab.com/samhamnam/victure or at https://www.vecture.xyz/
 
 # Victure
 A filesharing site, made as a final project in my programming/webdesign class, that automatically deletes files after a set time(5-60min).
